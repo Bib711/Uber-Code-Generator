@@ -1,0 +1,430 @@
+.dashboard-page {
+  min-height: 100vh;
+}
+
+.dashboard-header {
+  padding: 16px 0;
+  background: var(--dark-light);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dashboard-header .header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-header .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.dashboard-main {
+  padding: 40px 0;
+}
+
+/* Stats Section */
+.stats-section {
+  margin-bottom: 48px;
+}
+
+.stats-section h1 {
+  font-size: 2rem;
+  margin-bottom: 24px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  background: var(--dark-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  transition: all 0.3s;
+}
+
+.stat-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.stat-icon {
+  font-size: 2.5rem;
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.stat-label {
+  color: var(--gray-light);
+  font-size: 0.9rem;
+}
+
+/* Agents Section */
+.agents-section {
+  margin-bottom: 48px;
+}
+
+.agents-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.agents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.agent-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: var(--dark-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.agent-icon {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  background: var(--dark);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.agent-info {
+  flex: 1;
+}
+
+.agent-info h3 {
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.agent-info p {
+  font-size: 0.85rem;
+  color: var(--gray-light);
+}
+
+.agent-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  text-transform: capitalize;
+}
+
+.agent-status.active {
+  color: var(--success);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse 2s infinite;
+}
+
+/* Workflow Section */
+.workflow-section {
+  margin-bottom: 48px;
+}
+
+.workflow-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.workflow-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 40px 20px;
+  background: var(--dark-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  overflow-x: auto;
+}
+
+.workflow-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 20px;
+  background: var(--dark);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  min-width: 80px;
+  transition: all 0.3s;
+}
+
+.workflow-node:hover {
+  border-color: var(--primary);
+  transform: scale(1.05);
+}
+
+.workflow-node.start {
+  border-color: var(--secondary);
+}
+
+.workflow-node.end {
+  border-color: var(--success);
+}
+
+.workflow-node span {
+  font-size: 1.5rem;
+}
+
+.workflow-node label {
+  font-size: 0.8rem;
+  color: var(--gray-light);
+  white-space: nowrap;
+}
+
+.workflow-arrow {
+  color: var(--gray);
+  font-size: 1.5rem;
+}
+
+/* Sessions Section */
+.sessions-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+/* Sessions Header */
+.sessions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sessions-header h2 {
+  margin: 0;
+}
+
+.sessions-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}
+
+.btn-danger:disabled {
+  background: #6b7280;
+  cursor: not-allowed;
+}
+
+.sessions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.session-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--dark-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition: all 0.2s;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.session-card .session-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  text-decoration: none;
+  color: inherit;
+}
+
+.session-card:hover {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.session-card.select-mode {
+  cursor: pointer;
+}
+
+.session-card.selected {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.15);
+}
+
+.session-card.empty-session {
+  opacity: 0.7;
+  border-style: dashed;
+}
+
+.session-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.session-checkbox input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--primary);
+}
+
+.message-count.empty {
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.2);
+}
+
+.session-icon {
+  font-size: 1.5rem;
+}
+
+.session-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.session-id {
+  font-weight: 600;
+}
+
+.session-date {
+  font-size: 0.85rem;
+  color: var(--gray-light);
+}
+
+.message-count {
+  padding: 4px 10px;
+  background: var(--dark);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: var(--gray-light);
+}
+
+.session-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--white);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 300px;
+}
+
+.session-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.delete-session-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  opacity: 0;
+  transition: all 0.2s;
+  font-size: 1rem;
+}
+
+.session-card:hover .delete-session-btn {
+  opacity: 0.6;
+}
+
+.delete-session-btn:hover {
+  opacity: 1 !important;
+  background: rgba(255, 100, 100, 0.2);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  background: var(--dark-light);
+  border-radius: 16px;
+}
+
+.empty-state p {
+  color: var(--gray-light);
+  margin-bottom: 16px;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--gray-light);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .workflow-diagram {
+    flex-wrap: wrap;
+  }
+  
+  .workflow-arrow {
+    display: none;
+  }
+}
