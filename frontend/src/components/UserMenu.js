@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from './Toast';
@@ -52,8 +53,8 @@ const UserMenu = () => {
         </button>
       </div>
 
-      {/* Logout Confirmation Modal */}
-      {showConfirm && (
+      {/* Logout Confirmation Modal - Rendered via Portal to document.body */}
+      {showConfirm && ReactDOM.createPortal(
         <div className="logout-modal-overlay" onClick={handleCancelLogout}>
           <div className="logout-modal" onClick={e => e.stopPropagation()}>
             <div className="logout-modal-icon">👋</div>
@@ -68,7 +69,8 @@ const UserMenu = () => {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
