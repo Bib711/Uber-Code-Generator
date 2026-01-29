@@ -453,7 +453,7 @@ async def cleanup_empty_sessions(user: dict = Depends(get_current_user)):
     return {"message": f"Cleaned up {deleted_count} empty sessions", "deleted_count": deleted_count}
 
 
-# Run with: uvicorn main:app --reload --host 0.0.0.0 --port 5000
+# Run with: python main.py
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=settings.PORT)
+    uvicorn.run("main:app", host="0.0.0.0", port=settings.PORT, reload=True)
