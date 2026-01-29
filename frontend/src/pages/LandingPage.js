@@ -44,7 +44,7 @@ const LandingPage = () => {
       <header className="header">
         <div className="container header-content">
           <div className="logo">
-            <span className="logo-icon">🚀</span>
+            <span className="logo-icon">🤖</span>
             <span className="logo-text">Uber Code Generator</span>
           </div>
           <nav className="nav">
@@ -195,7 +195,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* CTA Section */}}
+      {/* CTA Section */}
       <section className="cta">
         <div className="container cta-content">
           <h2>Ready to Transform Your Coding Experience?</h2>
