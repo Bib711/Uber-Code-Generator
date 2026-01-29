@@ -1,4 +1,4 @@
-/* User Menu */
+/* User Menu - Grok Style */
 .user-menu {
   display: flex;
   align-items: center;
@@ -16,54 +16,53 @@
   height: 36px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid var(--primary);
 }
 
 .user-avatar-placeholder {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
   font-size: 1rem;
-  color: white;
+  color: var(--dark);
 }
 
 .user-name {
   font-weight: 500;
-  color: #fff;
+  color: var(--white);
   font-size: 0.95rem;
 }
 
 .logout-btn {
   padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  color: #fff;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 9999px;
+  color: var(--text-secondary);
   font-size: 0.85rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
 .logout-btn:hover {
-  background: rgba(239, 68, 68, 0.2);
+  background: rgba(239, 68, 68, 0.1);
   border-color: #ef4444;
-  color: #fca5a5;
+  color: #ef4444;
 }
 
-/* Logout Confirmation Modal */
+/* Logout Confirmation Modal - Grok Style */
 .logout-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -77,8 +76,8 @@
 }
 
 .logout-modal {
-  background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--dark-card);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 32px 40px;
   text-align: center;
@@ -89,12 +88,12 @@
 
 @keyframes scaleIn {
   from { 
-    transform: scale(0.9);
     opacity: 0;
+    transform: scale(0.95);
   }
   to { 
-    transform: scale(1);
     opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -104,50 +103,117 @@
 }
 
 .logout-modal h3 {
-  font-size: 1.4rem;
-  color: #fff;
+  color: var(--white);
+  font-size: 1.25rem;
   margin-bottom: 8px;
 }
 
 .logout-modal p {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-secondary);
   font-size: 0.95rem;
   margin-bottom: 24px;
 }
 
-.logout-modal-actions {
+.logout-modal-buttons {
   display: flex;
   gap: 12px;
   justify-content: center;
 }
 
-.logout-modal-actions .btn {
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
+.modal-btn {
+  padding: 10px 24px;
+  border-radius: 9999px;
   font-size: 0.95rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
   border: none;
 }
 
-.logout-modal-actions .btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+.modal-btn-cancel {
+  background: var(--dark);
+  color: var(--white);
+  border: 1px solid var(--border-color);
 }
 
-.logout-modal-actions .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
+.modal-btn-cancel:hover {
+  background: var(--dark-hover);
+  border-color: var(--border-light);
 }
 
-.logout-modal-actions .btn-danger {
+.modal-btn-confirm {
   background: #ef4444;
-  color: #fff;
+  color: white;
 }
 
-.logout-modal-actions .btn-danger:hover {
+.modal-btn-confirm:hover {
   background: #dc2626;
+}
+
+/* User Dropdown - Grok Style */
+.user-dropdown {
+  position: relative;
+}
+
+.user-dropdown-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.user-dropdown-toggle:hover {
+  background: var(--dark-hover);
+  border-color: var(--border-light);
+}
+
+.user-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 200px;
+  background: var(--dark-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 8px;
+  animation: fadeIn 0.2s ease;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.dropdown-item:hover {
+  background: var(--dark-hover);
+  color: var(--white);
+}
+
+.dropdown-item.danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 8px 0;
 }
 
 /* Responsive */
@@ -158,9 +224,5 @@
   
   .logout-modal {
     padding: 24px;
-  }
-  
-  .logout-modal-actions {
-    flex-direction: column;
   }
 }

@@ -1,4 +1,4 @@
-/* Toast Container - Grok Style */
+/* Toast Container */
 .toast-container {
   position: fixed;
   top: 20px;
@@ -10,16 +10,16 @@
   pointer-events: none;
 }
 
-/* Individual Toast - Grok Style */
+/* Individual Toast */
 .toast {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 16px 20px;
-  background: var(--dark-card);
-  border: 1px solid var(--border-color);
+  background: #1e1e2e;
   border-radius: 12px;
-  border-left: 4px solid var(--primary);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  border-left: 4px solid #6366f1;
   min-width: 300px;
   max-width: 450px;
   animation: slideIn 0.3s ease;
@@ -52,21 +52,26 @@
   }
 }
 
-/* Toast Types - Grok Style */
+/* Toast Types */
 .toast-success {
-  border-left-color: var(--success);
+  border-left-color: #10b981;
+  background: linear-gradient(135deg, #1e1e2e 0%, #0d3320 100%);
 }
 
 .toast-error {
   border-left-color: #ef4444;
+  background: linear-gradient(135deg, #1e1e2e 0%, #3d1515 100%);
 }
 
 .toast-info {
-  border-left-color: var(--primary);
+  border-left-color: #6366f1;
+  background: linear-gradient(135deg, #1e1e2e 0%, #1e1b4b 100%);
 }
 
 .toast-welcome {
-  border-left-color: var(--primary);
+  border-left-color: #f59e0b;
+  background: linear-gradient(135deg, #1e1e2e 0%, #422006 100%);
+  min-width: 320px;
 }
 
 /* Toast Icon */
@@ -77,7 +82,7 @@
 /* Toast Message */
 .toast-message {
   flex: 1;
-  color: var(--white);
+  color: #fff;
   font-size: 0.95rem;
   font-weight: 500;
 }
@@ -86,7 +91,7 @@
 .toast-close {
   background: none;
   border: none;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 1.4rem;
   cursor: pointer;
   padding: 0;
@@ -95,33 +100,19 @@
 }
 
 .toast-close:hover {
-  color: var(--white);
-}
-
-/* Toast Progress Bar */
-.toast-progress {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 3px;
-  background: var(--primary);
-  border-radius: 0 0 0 12px;
-  animation: progress 4s linear forwards;
-}
-
-@keyframes progress {
-  from { width: 100%; }
-  to { width: 0%; }
+  color: #fff;
 }
 
 /* Responsive */
 @media (max-width: 480px) {
   .toast-container {
-    left: 20px;
-    right: 20px;
+    left: 10px;
+    right: 10px;
+    top: 10px;
   }
   
   .toast {
     min-width: auto;
+    width: 100%;
   }
 }

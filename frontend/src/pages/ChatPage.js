@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import UserMenu from '../components/UserMenu';
@@ -108,6 +108,7 @@ const escapeHtml = (text) => {
 
 const ChatPage = () => {
   const { sessionId: urlSessionId } = useParams();
+  const navigate = useNavigate();
   const { authAxios, token, user } = useAuth();
   const [sessionId, setSessionId] = useState(urlSessionId || null);
   const [sessionTitle, setSessionTitle] = useState('New Chat');
@@ -140,16 +141,27 @@ const ChatPage = () => {
     scrollToBottom();
   }, [messages, streamingCode]);
 
+  // Handle URL session ID changes
   useEffect(() => {
-    if (!sessionId && !sessionCreatedRef.current) {
+    if (urlSessionId) {
+      // URL has a session ID - load it
+      setSessionId(urlSessionId);
+      sessionCreatedRef.current = true;
+    } else if (!sessionCreatedRef.current) {
+      // No URL session ID and no session created yet - create new
       sessionCreatedRef.current = true;
       createSession();
-    } else if (sessionId) {
-      // Load existing session
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlSessionId]);
+
+  // Load session data when sessionId changes
+  useEffect(() => {
+    if (sessionId && token) {
       loadSession();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [sessionId, token]);
 
   const loadSession = async () => {
     if (!sessionId || !token) return;
@@ -180,7 +192,27 @@ const ChatPage = () => {
   const createSession = async () => {
     try {
       const response = await authAxios.post('/sessions');
-      setSessionId(response.data.session_id);
+      const newSessionId = response.data.session_id;
+      
+      // Reset all state for new chat
+      setSessionId(newSessionId);
+      setSessionTitle('New Chat');
+      setMessages([]);
+      setPrompt('');
+      setResult(null);
+      setStreamingCode('');
+      setStreamingMessage('');
+      setIsStreaming(false);
+      setCurrentAgent(null);
+      setEditMode(false);
+      setEditedCode('');
+      setShowPromptEdit(false);
+      setAgentFixes([]);
+      setOriginalCode('');
+      sessionCreatedRef.current = true;
+      
+      // Navigate to the new session
+      navigate(`/chat/${newSessionId}`);
     } catch (error) {
       console.error('Error creating session:', error);
     }

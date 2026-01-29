@@ -1,13 +1,11 @@
 .dashboard-page {
   min-height: 100vh;
-  background: var(--dark);
 }
 
-/* Dashboard Header - Grok Style */
 .dashboard-header {
   padding: 16px 0;
-  background: var(--dark);
-  border-bottom: 1px solid var(--border-color);
+  background: var(--dark-light);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .dashboard-header .header-content {
@@ -22,14 +20,13 @@
   gap: 10px;
   font-weight: 700;
   font-size: 1.1rem;
-  color: var(--white);
 }
 
 .dashboard-main {
   padding: 40px 0;
 }
 
-/* Stats Section - Grok Style */
+/* Stats Section */
 .stats-section {
   margin-bottom: 48px;
 }
@@ -37,13 +34,12 @@
 .stats-section h1 {
   font-size: 2rem;
   margin-bottom: 24px;
-  color: var(--white);
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
+  gap: 20px;
 }
 
 .stat-card {
@@ -51,14 +47,14 @@
   align-items: center;
   gap: 16px;
   padding: 24px;
-  background: var(--dark-card);
-  border: 1px solid var(--border-color);
+  background: var(--dark-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  transition: all 0.2s ease;
+  transition: all 0.3s;
 }
 
 .stat-card:hover {
-  border-color: var(--border-light);
+  border-color: var(--primary);
   transform: translateY(-2px);
 }
 
@@ -74,15 +70,14 @@
 .stat-value {
   font-size: 1.75rem;
   font-weight: 700;
-  color: var(--white);
 }
 
 .stat-label {
-  color: var(--text-secondary);
+  color: var(--gray-light);
   font-size: 0.9rem;
 }
 
-/* Agents Section - Grok Style */
+/* Agents Section */
 .agents-section {
   margin-bottom: 48px;
 }
@@ -90,13 +85,12 @@
 .agents-section h2 {
   font-size: 1.5rem;
   margin-bottom: 20px;
-  color: var(--white);
 }
 
 .agents-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 12px;
+  gap: 16px;
 }
 
 .agent-card {
@@ -104,24 +98,17 @@
   align-items: center;
   gap: 16px;
   padding: 20px;
-  background: var(--dark-card);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  transition: all 0.2s ease;
-}
-
-.agent-card:hover {
-  border-color: var(--border-light);
-  transform: translateX(4px);
+  background: var(--dark-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
 }
 
 .agent-icon {
   font-size: 2rem;
   width: 50px;
   height: 50px;
-  background: rgba(249, 115, 22, 0.1);
-  border: 1px solid rgba(249, 115, 22, 0.2);
-  border-radius: 14px;
+  background: var(--dark);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -134,12 +121,11 @@
 .agent-info h3 {
   font-size: 1rem;
   margin-bottom: 4px;
-  color: var(--white);
 }
 
 .agent-info p {
   font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: var(--gray-light);
 }
 
 .agent-status {
@@ -162,7 +148,7 @@
   animation: pulse 2s infinite;
 }
 
-/* Workflow Section - Grok Style */
+/* Workflow Section */
 .workflow-section {
   margin-bottom: 48px;
 }
@@ -170,7 +156,6 @@
 .workflow-section h2 {
   font-size: 1.5rem;
   margin-bottom: 20px;
-  color: var(--white);
 }
 
 .workflow-diagram {
@@ -179,8 +164,8 @@
   justify-content: center;
   gap: 8px;
   padding: 40px 20px;
-  background: var(--dark-card);
-  border: 1px solid var(--border-color);
+  background: var(--dark-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   overflow-x: auto;
 }
@@ -192,10 +177,10 @@
   gap: 8px;
   padding: 16px 20px;
   background: var(--dark);
-  border: 2px solid var(--border-color);
+  border: 2px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   min-width: 80px;
-  transition: all 0.2s;
+  transition: all 0.3s;
 }
 
 .workflow-node:hover {
@@ -204,7 +189,7 @@
 }
 
 .workflow-node.start {
-  border-color: var(--primary);
+  border-color: var(--secondary);
 }
 
 .workflow-node.end {
@@ -217,22 +202,22 @@
 
 .workflow-node label {
   font-size: 0.8rem;
-  color: var(--text-secondary);
+  color: var(--gray-light);
   white-space: nowrap;
 }
 
 .workflow-arrow {
-  color: var(--text-muted);
+  color: var(--gray);
   font-size: 1.5rem;
 }
 
-/* Sessions Section - Grok Style */
+/* Sessions Section */
 .sessions-section h2 {
   font-size: 1.5rem;
   margin-bottom: 20px;
-  color: var(--white);
 }
 
+/* Sessions Header */
 .sessions-header {
   display: flex;
   justify-content: space-between;
@@ -257,7 +242,6 @@
 .btn-danger {
   background: #ef4444;
   color: white;
-  border-radius: 9999px;
 }
 
 .btn-danger:hover {
@@ -265,15 +249,14 @@
 }
 
 .btn-danger:disabled {
-  background: var(--dark-card);
-  color: var(--text-muted);
+  background: #6b7280;
   cursor: not-allowed;
 }
 
 .sessions-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
 .session-card {
@@ -281,8 +264,8 @@
   align-items: center;
   gap: 16px;
   padding: 16px 20px;
-  background: var(--dark-card);
-  border: 1px solid var(--border-color);
+  background: var(--dark-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   transition: all 0.2s;
   text-decoration: none;
@@ -300,7 +283,7 @@
 
 .session-card:hover {
   border-color: var(--primary);
-  background: var(--dark-hover);
+  background: rgba(99, 102, 241, 0.05);
 }
 
 .session-card.select-mode {
@@ -309,7 +292,7 @@
 
 .session-card.selected {
   border-color: var(--primary);
-  background: rgba(249, 115, 22, 0.1);
+  background: rgba(99, 102, 241, 0.15);
 }
 
 .session-card.empty-session {
@@ -346,20 +329,19 @@
 
 .session-id {
   font-weight: 600;
-  color: var(--white);
 }
 
 .session-date {
   font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: var(--gray-light);
 }
 
 .message-count {
   padding: 4px 10px;
   background: var(--dark);
-  border-radius: 9999px;
+  border-radius: 20px;
   font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: var(--gray-light);
 }
 
 .session-title {
@@ -395,27 +377,25 @@
 
 .delete-session-btn:hover {
   opacity: 1 !important;
-  background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
+  background: rgba(255, 100, 100, 0.2);
 }
 
 .empty-state {
   text-align: center;
   padding: 40px;
-  background: var(--dark-card);
+  background: var(--dark-light);
   border-radius: 16px;
-  border: 1px solid var(--border-color);
 }
 
 .empty-state p {
-  color: var(--text-secondary);
+  color: var(--gray-light);
   margin-bottom: 16px;
 }
 
 .loading {
   text-align: center;
   padding: 40px;
-  color: var(--text-secondary);
+  color: var(--gray-light);
 }
 
 .btn {
@@ -423,27 +403,19 @@
   align-items: center;
   gap: 8px;
   padding: 10px 20px;
-  border-radius: 9999px;
+  border-radius: 8px;
   font-weight: 600;
   transition: all 0.2s;
   text-decoration: none;
-  cursor: pointer;
-  border: none;
 }
 
 .btn-primary {
   background: var(--primary);
-  color: var(--dark);
+  color: white;
 }
 
 .btn-primary:hover {
-  background: var(--primary-light);
-}
-
-/* Animations */
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  background: var(--primary-dark);
 }
 
 /* Responsive */
@@ -454,13 +426,5 @@
   
   .workflow-arrow {
     display: none;
-  }
-  
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .agents-grid {
-    grid-template-columns: 1fr;
   }
 }

@@ -5,39 +5,28 @@
 }
 
 :root {
-  /* Grok AI Theme - Dark with Orange accent */
-  --primary: #f97316;
-  --primary-dark: #ea580c;
-  --primary-light: #fb923c;
-  --secondary: #71717a;
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --primary-light: #818cf8;
+  --secondary: #0ea5e9;
   --success: #22c55e;
-  --warning: #eab308;
+  --warning: #f59e0b;
   --danger: #ef4444;
-  --dark: #000000;
-  --dark-light: #0a0a0a;
-  --dark-card: #111111;
-  --dark-hover: #1a1a1a;
-  --border-color: #222222;
-  --border-light: #333333;
-  --gray: #71717a;
-  --gray-light: #a1a1aa;
-  --gray-dark: #52525b;
-  --light: #fafafa;
+  --dark: #0f172a;
+  --dark-light: #1e293b;
+  --gray: #64748b;
+  --gray-light: #94a3b8;
+  --light: #f1f5f9;
   --white: #ffffff;
-  --text-primary: #ffffff;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
+  --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background-color: var(--dark);
-  color: var(--text-primary);
-  line-height: 1.5;
+  color: var(--white);
+  line-height: 1.6;
   overflow-x: hidden;
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 code, pre {
@@ -96,27 +85,21 @@ button {
   animation: pulse 2s ease-in-out infinite;
 }
 
-/* Scrollbar - Grok style */
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--dark-light);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-light);
-  border-radius: 3px;
+  background: var(--gray);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--gray);
-}
-
-/* Selection */
-::selection {
-  background: var(--primary);
-  color: var(--white);
+  background: var(--gray-light);
 }

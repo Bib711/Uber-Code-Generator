@@ -1,14 +1,13 @@
 .chat-page {
   display: flex;
   min-height: 100vh;
-  background: var(--dark);
 }
 
-/* Sidebar - Grok Style */
+/* Sidebar */
 .sidebar {
   width: 260px;
-  background: var(--dark);
-  border-right: 1px solid var(--border-color);
+  background: var(--dark-light);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -16,7 +15,7 @@
 
 .sidebar-header {
   padding: 20px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sidebar-header .logo {
@@ -25,7 +24,6 @@
   gap: 10px;
   font-weight: 700;
   font-size: 1.1rem;
-  color: var(--white);
 }
 
 .sidebar-nav {
@@ -33,7 +31,7 @@
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
 }
 
 .nav-item {
@@ -41,49 +39,41 @@
   align-items: center;
   gap: 12px;
   padding: 12px 16px;
-  border-radius: 12px;
+  border-radius: 8px;
   background: transparent;
-  color: var(--text-secondary);
+  color: var(--gray-light);
   font-size: 0.95rem;
-  transition: all 0.2s ease;
+  transition: all 0.2s;
   text-decoration: none;
-  border: 1px solid transparent;
 }
 
-.nav-item:hover {
-  background: var(--dark-hover);
-  color: var(--white);
-}
-
-.nav-item.active {
-  background: var(--dark-card);
-  border-color: var(--border-color);
+.nav-item:hover, .nav-item.active {
+  background: rgba(99, 102, 241, 0.1);
   color: var(--white);
 }
 
 .sidebar-footer {
   padding: 16px;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .session-info {
   font-size: 0.85rem;
-  color: var(--text-muted);
+  color: var(--gray);
 }
 
-/* Main Content - Grok Style */
+/* Main Content */
 .chat-main {
   flex: 1;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: var(--dark);
 }
 
 .chat-header {
   padding: 16px 24px;
-  background: var(--dark);
-  border-bottom: 1px solid var(--border-color);
+  background: var(--dark-light);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -92,54 +82,42 @@
 .chat-header h1 {
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--white);
 }
 
 .btn {
   padding: 8px 16px;
-  border-radius: 9999px;
+  border-radius: 6px;
   font-weight: 500;
   font-size: 0.9rem;
-  transition: all 0.2s ease;
-  border: 1px solid transparent;
-  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .btn-secondary {
-  background: var(--dark-card);
-  color: var(--white);
-  border-color: var(--border-color);
+  background: var(--gray);
+  color: white;
 }
 
 .btn-secondary:hover {
-  background: var(--dark-hover);
-  border-color: var(--border-light);
+  background: var(--gray-light);
 }
 
 .btn-success {
   background: var(--success);
-  color: var(--dark);
-}
-
-.btn-success:hover {
-  background: #059669;
+  color: white;
 }
 
 .btn-icon {
   background: transparent;
-  color: var(--text-secondary);
-  border: 1px solid var(--border-color);
-  padding: 8px;
-  border-radius: 8px;
+  color: var(--gray-light);
+  border: 1px solid var(--gray);
 }
 
 .btn-icon:hover {
-  background: var(--dark-hover);
-  color: var(--white);
-  border-color: var(--border-light);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
-/* Messages Area - Grok Style */
+/* Messages Area */
 .chat-messages {
   flex: 1;
   overflow-y: auto;
@@ -149,22 +127,21 @@
 .welcome-message {
   text-align: center;
   padding: 60px 20px;
-  animation: fadeIn 0.4s ease-out;
+  animation: fadeIn 0.6s ease-out;
 }
 
 .welcome-icon {
-  font-size: 3.5rem;
+  font-size: 4rem;
   margin-bottom: 20px;
 }
 
 .welcome-message h2 {
   font-size: 1.75rem;
   margin-bottom: 12px;
-  color: var(--white);
 }
 
 .welcome-message > p {
-  color: var(--text-secondary);
+  color: var(--gray-light);
   margin-bottom: 32px;
 }
 
@@ -174,7 +151,7 @@
 }
 
 .example-prompts h4 {
-  color: var(--text-muted);
+  color: var(--gray-light);
   font-size: 0.9rem;
   margin-bottom: 16px;
 }
@@ -184,22 +161,20 @@
   width: 100%;
   padding: 12px 16px;
   margin-bottom: 8px;
-  background: var(--dark-card);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
+  background: var(--dark-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
   color: var(--white);
   text-align: left;
-  transition: all 0.2s ease;
-  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .example-prompts button:hover {
   border-color: var(--primary);
-  background: var(--dark-hover);
-  transform: translateX(4px);
+  background: rgba(99, 102, 241, 0.1);
 }
 
-/* Message Bubbles - Grok Style */
+/* Message Bubbles */
 .message {
   display: flex;
   gap: 12px;
@@ -214,46 +189,39 @@
 .message-avatar {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  background: var(--dark-card);
-  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--dark-light);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
+  font-size: 1.1rem;
   flex-shrink: 0;
 }
 
 .message.assistant .message-avatar {
-  background: var(--primary);
-  color: var(--dark);
-  border: none;
+  background: var(--gradient);
 }
 
 .message-content {
   max-width: 70%;
   padding: 12px 16px;
-  border-radius: 16px;
-  background: var(--dark-card);
-  border: 1px solid var(--border-color);
-  color: var(--white);
+  border-radius: 12px;
+  background: var(--dark-light);
 }
 
 .message.user .message-content {
   background: var(--primary);
-  color: var(--dark);
-  border-color: transparent;
 }
 
 .result-preview {
   margin-top: 8px;
   padding-top: 8px;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 0.85rem;
-  color: var(--primary);
+  color: var(--primary-light);
 }
 
-/* Loading Indicator - Grok Style */
+/* Loading Indicator */
 .loading-indicator {
   display: flex;
   gap: 4px;
@@ -271,41 +239,35 @@
 .loading-dot:nth-child(2) { animation-delay: 0.2s; }
 .loading-dot:nth-child(3) { animation-delay: 0.4s; }
 
-/* Settings Panel - Grok Style */
+/* Settings Panel */
 .settings-panel {
   padding: 16px;
   margin: 8px;
-  background: var(--dark-card);
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
+  background: var(--dark);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .settings-panel h4 {
   font-size: 0.9rem;
   margin-bottom: 8px;
-  color: var(--text-secondary);
+  color: var(--gray-light);
 }
 
 .settings-panel input {
   width: 100%;
-  padding: 10px 14px;
-  background: var(--dark);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
+  padding: 8px 12px;
+  background: var(--dark-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
   color: var(--white);
   font-size: 0.85rem;
   margin-bottom: 8px;
-  transition: all 0.2s ease;
-}
-
-.settings-panel input:focus {
-  border-color: var(--primary);
-  outline: none;
 }
 
 .settings-panel .hint {
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: var(--gray);
   margin-top: 8px;
 }
 
@@ -314,13 +276,13 @@
   font-size: 0.85rem;
 }
 
-/* Prompt Edit Panel - Grok Style */
+/* Prompt Edit Panel */
 .edit-actions-bar {
   display: flex;
   gap: 12px;
   padding: 12px 24px;
   background: var(--dark);
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .edit-actions-bar .btn {
@@ -329,39 +291,32 @@
 
 .prompt-edit-panel {
   padding: 20px 24px;
-  background: var(--dark-card);
-  border-bottom: 1px solid var(--border-color);
+  background: var(--dark-light);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   animation: slideIn 0.3s ease;
 }
 
 .prompt-edit-panel h3 {
   font-size: 1rem;
   margin-bottom: 4px;
-  color: var(--white);
 }
 
 .prompt-edit-panel .hint {
   font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: var(--gray-light);
   margin-bottom: 12px;
 }
 
 .prompt-edit-panel textarea {
   width: 100%;
-  padding: 14px;
+  padding: 12px;
   background: var(--dark);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border: 2px solid var(--primary);
+  border-radius: 8px;
   color: var(--white);
   font-size: 0.95rem;
   resize: vertical;
   font-family: inherit;
-  transition: all 0.2s ease;
-}
-
-.prompt-edit-panel textarea:focus {
-  border-color: var(--primary);
-  outline: none;
 }
 
 .prompt-edit-actions {
@@ -370,12 +325,12 @@
   margin-top: 12px;
 }
 
-/* Agent Status - Grok Style */
+/* Agent Status */
 .agent-status {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--primary);
+  color: var(--primary-light);
 }
 
 .agent-indicator {
@@ -403,10 +358,10 @@
   50% { opacity: 0; }
 }
 
-/* Workflow Animations - Grok Style */
+/* Workflow Animations */
 .workflow-item.active {
   border-color: var(--primary);
-  background: rgba(249, 115, 22, 0.1);
+  background: rgba(99, 102, 241, 0.1);
 }
 
 .workflow-item.complete {
@@ -432,14 +387,14 @@
 
 .workflow-label {
   font-size: 0.75rem;
-  color: var(--text-secondary);
+  color: var(--gray-light);
   white-space: nowrap;
 }
 
-/* Result Panel - Grok Style */
+/* Result Panel */
 .result-panel {
   background: var(--dark-light);
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding: 24px;
   max-height: 50vh;
   overflow-y: auto;
@@ -452,7 +407,7 @@
 .workflow-section h3 {
   font-size: 1rem;
   margin-bottom: 16px;
-  color: var(--text-secondary);
+  color: var(--gray-light);
 }
 
 .workflow-timeline {
@@ -466,281 +421,31 @@
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
-  background: var(--dark-card);
-  border-radius: 10px;
-  border: 1px solid var(--border-color);
-  transition: all 0.2s ease;
-}
-
-.workflow-item:hover {
-  background: var(--dark-hover);
-  border-color: var(--border-light);
+  background: var(--dark);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .workflow-icon {
-  font-size: 1rem;
-}
-
-/* Code Preview - Grok Style */
-.code-preview {
-  margin-top: 16px;
-  max-height: 400px;
-  overflow-y: auto;
-}
-
-.code-preview h3 {
-  font-size: 1rem;
-  margin-bottom: 12px;
-  color: var(--white);
-}
-
-.code-file {
-  background: var(--dark);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  margin-bottom: 12px;
-  overflow: hidden;
-}
-
-.code-file-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 14px;
-  background: var(--dark-card);
-  border-bottom: 1px solid var(--border-color);
-}
-
-.code-file-name {
-  font-size: 0.85rem;
-  color: var(--primary);
-  font-family: monospace;
-}
-
-.code-content {
-  padding: 14px;
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  overflow-x: auto;
-}
-
-.code-content pre {
-  margin: 0;
-  color: var(--white);
-}
-
-/* Input Area - Grok Style */
-.chat-input-container {
-  padding: 16px 24px 24px;
-  background: var(--dark);
-  border-top: 1px solid var(--border-color);
-}
-
-.chat-input-wrapper {
-  display: flex;
-  gap: 12px;
-  align-items: flex-end;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.chat-input {
-  display: flex;
-  gap: 12px;
-  padding: 16px 24px 24px;
-  background: var(--dark);
-  border-top: 1px solid var(--border-color);
-}
-
-.chat-input input {
-  flex: 1;
-  padding: 14px 20px;
-  background: var(--dark-card);
-  border: 1px solid var(--border-color);
-  border-radius: 9999px;
-  color: var(--white);
-  font-size: 1rem;
-  font-family: inherit;
-  transition: all 0.2s ease;
-  outline: none;
-}
-
-.chat-input input:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2);
-}
-
-.chat-input input::placeholder {
-  color: var(--text-muted);
-}
-
-.chat-input button {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: var(--primary);
-  color: var(--dark);
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 1.25rem;
-  font-weight: 600;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
 }
 
-.chat-input button:hover:not(:disabled) {
-  background: var(--primary-light);
-  transform: scale(1.05);
-}
-
-.chat-input button:disabled {
-  background: var(--dark-card);
-  color: var(--text-muted);
-  cursor: not-allowed;
-}
-
-.chat-input textarea {
-  flex: 1;
-  padding: 14px 20px;
-  background: var(--dark-card);
-  border: 1px solid var(--border-color);
-  border-radius: 24px;
-  color: var(--white);
-  font-size: 0.95rem;
-  font-family: inherit;
-  resize: none;
-  min-height: 50px;
-  max-height: 150px;
-  transition: all 0.2s ease;
-}
-
-.chat-input textarea:focus {
-  border-color: var(--primary);
-  outline: none;
-}
-
-.chat-input textarea::placeholder {
-  color: var(--text-muted);
-}
-
-.send-button {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: var(--primary);
-  color: var(--dark);
-  border: none;
-  cursor: pointer;
+.workflow-details {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
+  flex-direction: column;
 }
 
-.send-button:hover:not(:disabled) {
-  background: var(--primary-light);
-  transform: scale(1.05);
+.workflow-agent {
+  font-size: 0.85rem;
+  font-weight: 500;
 }
 
-.send-button:disabled {
-  background: var(--dark-card);
-  color: var(--text-muted);
-  cursor: not-allowed;
+.workflow-status {
+  font-size: 0.75rem;
+  color: var(--success);
 }
 
-.input-hint {
-  text-align: center;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-top: 8px;
-}
-
-/* Session List in Sidebar - Grok Style */
-.session-list {
-  flex: 1;
-  overflow-y: auto;
-  padding: 8px;
-}
-
-.session-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  margin-bottom: 4px;
-  border-radius: 10px;
-  background: transparent;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  border: 1px solid transparent;
-  text-decoration: none;
-}
-
-.session-item:hover {
-  background: var(--dark-hover);
-  color: var(--white);
-}
-
-.session-item.active {
-  background: var(--dark-card);
-  border-color: var(--border-color);
-  color: var(--white);
-}
-
-.session-item-icon {
-  font-size: 1rem;
-  opacity: 0.7;
-}
-
-.session-item-title {
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.session-item-delete {
-  opacity: 0;
-  padding: 4px;
-  border-radius: 4px;
-  transition: all 0.2s;
-}
-
-.session-item:hover .session-item-delete {
-  opacity: 0.5;
-}
-
-.session-item-delete:hover {
-  opacity: 1 !important;
-  background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(-10px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-/* Code Section - Grok Style */
+/* Code Section */
 .code-section {
   margin-bottom: 24px;
 }
@@ -754,13 +459,13 @@
 
 .section-header h3 {
   font-size: 1rem;
-  color: var(--text-secondary);
+  color: var(--gray-light);
 }
 
 .code-block {
   background: var(--dark);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
   padding: 16px;
   overflow-x: auto;
   font-size: 0.9rem;
@@ -772,7 +477,7 @@
   min-height: 200px;
   background: var(--dark);
   border: 2px solid var(--primary);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 16px;
   color: var(--white);
   font-family: 'JetBrains Mono', monospace;
@@ -781,7 +486,7 @@
   resize: vertical;
 }
 
-/* Results Grid - Grok Style */
+/* Results Grid */
 .results-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -789,8 +494,8 @@
 }
 
 .result-card {
-  background: var(--dark-card);
-  border: 1px solid var(--border-color);
+  background: var(--dark);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   padding: 16px;
 }
@@ -809,45 +514,44 @@
 .card-header h4 {
   flex: 1;
   font-size: 0.95rem;
-  color: var(--white);
 }
 
 .badge {
   padding: 4px 8px;
-  border-radius: 9999px;
+  border-radius: 4px;
   font-size: 0.75rem;
   font-weight: 600;
 }
 
 .badge-success {
-  background: rgba(16, 185, 129, 0.2);
+  background: rgba(34, 197, 94, 0.2);
   color: var(--success);
 }
 
 .badge-warning {
   background: rgba(245, 158, 11, 0.2);
-  color: #f59e0b;
+  color: var(--warning);
 }
 
 .badge-danger {
   background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
+  color: var(--danger);
 }
 
 .badge-info {
-  background: rgba(249, 115, 22, 0.2);
-  color: var(--primary);
+  background: rgba(14, 165, 233, 0.2);
+  color: var(--secondary);
 }
 
 .card-message {
   font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: var(--gray-light);
   margin-bottom: 12px;
 }
 
 .issues-list {
   font-size: 0.8rem;
-  color: #f59e0b;
+  color: var(--warning);
   padding-left: 16px;
 }
 
@@ -862,18 +566,77 @@
 }
 
 .test-stat.passed { color: var(--success); }
-.test-stat.failed { color: #ef4444; }
+.test-stat.failed { color: var(--danger); }
 
 .security-level {
   font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: var(--gray-light);
 }
 
 .level-low { color: var(--success); font-weight: 600; }
-.level-medium { color: #f59e0b; font-weight: 600; }
-.level-high { color: #ef4444; font-weight: 600; }
+.level-medium { color: var(--warning); font-weight: 600; }
+.level-high { color: var(--danger); font-weight: 600; }
 
-/* Streaming Message Styles - Grok Style */
+/* Input Area */
+.chat-input {
+  display: flex;
+  gap: 12px;
+  padding: 16px 24px;
+  background: var(--dark-light);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 14px 18px;
+  background: var(--dark);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: var(--white);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.chat-input input:focus {
+  border-color: var(--primary);
+}
+
+.chat-input input::placeholder {
+  color: var(--gray);
+}
+
+.chat-input button {
+  width: 48px;
+  height: 48px;
+  background: var(--gradient);
+  border-radius: 12px;
+  font-size: 1.25rem;
+  color: white;
+  transition: transform 0.2s;
+}
+
+.chat-input button:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.chat-input button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+  
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Streaming Message Styles */
 .message.streaming {
   animation: fadeIn 0.3s ease;
 }
@@ -900,19 +663,24 @@
   animation: blink 0.8s infinite;
 }
 
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
 .streaming-preview {
   background: var(--dark);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 12px;
   max-height: 200px;
   overflow-y: auto;
-  border: 1px solid var(--primary);
+  border: 1px solid rgba(99, 102, 241, 0.3);
 }
 
 .streaming-preview pre {
   margin: 0;
   font-size: 0.8rem;
-  color: var(--text-secondary);
+  color: var(--gray-light);
   white-space: pre-wrap;
   word-break: break-word;
 }
@@ -927,33 +695,76 @@
   line-height: 1.6;
 }
 
-/* Results Section - Grok Style */
+/* Agent Status Animation */
+.agent-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+
+.agent-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+/* Streaming Indicator Badge */
+.streaming-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--success);
+  font-weight: 500;
+  animation: pulse 1s infinite;
+  margin-left: 8px;
+}
+
+/* ========================================
+   DETAILED AGENT OUTPUT STYLES
+   ======================================== */
+
 .results-section {
   margin-top: 20px;
   padding: 20px;
   background: var(--dark);
   border-radius: 12px;
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .results-section > h3 {
   font-size: 1.1rem;
   margin-bottom: 20px;
-  color: var(--primary);
+  color: var(--primary-light);
 }
 
-/* Agent Result Card - Grok Style */
+/* Agent Result Card */
 .agent-result-card {
-  background: var(--dark-card);
-  border-radius: 12px;
+  background: var(--dark-light);
+  border-radius: 10px;
   padding: 16px;
   margin-bottom: 16px;
-  border: 1px solid var(--border-color);
-  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
 }
 
 .agent-result-card:hover {
-  border-color: var(--border-light);
+  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.1);
 }
 
 .agent-header {
@@ -962,7 +773,7 @@
   align-items: center;
   margin-bottom: 12px;
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .agent-title {
@@ -979,7 +790,6 @@
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--white);
 }
 
 /* Agent Description */
@@ -995,7 +805,7 @@
   line-height: 1.6;
   white-space: pre-wrap;
   word-break: break-word;
-  color: var(--text-secondary);
+  color: var(--gray-light);
   margin: 0;
   font-family: 'Fira Code', 'Monaco', monospace;
   max-height: 300px;
@@ -1008,16 +818,16 @@
   gap: 16px;
   flex-wrap: wrap;
   font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: var(--gray-light);
 }
 
 .agent-stats span {
-  background: rgba(249, 115, 22, 0.1);
+  background: rgba(99, 102, 241, 0.1);
   padding: 4px 10px;
-  border-radius: 9999px;
+  border-radius: 20px;
 }
 
-/* Test Results List - Grok Style */
+/* Test Results List */
 .test-results-list {
   display: flex;
   flex-direction: column;
@@ -1031,7 +841,7 @@
   gap: 12px;
   padding: 8px 12px;
   background: var(--dark);
-  border-radius: 8px;
+  border-radius: 6px;
   font-size: 0.85rem;
 }
 
@@ -1040,15 +850,15 @@
 }
 
 .test-item.failed {
-  border-left: 3px solid #ef4444;
+  border-left: 3px solid var(--danger);
 }
 
 .test-item.warning {
-  border-left: 3px solid #f59e0b;
+  border-left: 3px solid var(--warning);
 }
 
 .test-item.skipped {
-  border-left: 3px solid var(--text-muted);
+  border-left: 3px solid var(--gray);
 }
 
 .test-status {
@@ -1061,11 +871,11 @@
 }
 
 .test-duration {
-  color: var(--text-muted);
+  color: var(--gray);
   font-size: 0.75rem;
 }
 
-/* Security Info - Grok Style */
+/* Security Info */
 .security-info {
   display: flex;
   gap: 12px;
@@ -1075,7 +885,7 @@
 
 .risk-badge {
   padding: 4px 12px;
-  border-radius: 9999px;
+  border-radius: 20px;
   font-size: 0.8rem;
   font-weight: 600;
 }
@@ -1087,12 +897,12 @@
 
 .risk-medium {
   background: rgba(245, 158, 11, 0.2);
-  color: #f59e0b;
+  color: var(--warning);
 }
 
 .risk-high {
   background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
+  color: var(--danger);
 }
 
 .risk-critical {
@@ -1102,20 +912,20 @@
 
 .vuln-count {
   font-size: 0.85rem;
-  color: #ef4444;
+  color: var(--danger);
 }
 
-/* Workflow Graph - Grok Style */
+/* Workflow Graph */
 .workflow-info {
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .workflow-info h4 {
   font-size: 0.95rem;
   margin-bottom: 12px;
-  color: var(--text-secondary);
+  color: var(--gray-light);
 }
 
 .workflow-graph {
@@ -1125,17 +935,17 @@
   gap: 8px;
   flex-wrap: wrap;
   padding: 16px;
-  background: var(--dark-card);
-  border-radius: 12px;
+  background: var(--dark-light);
+  border-radius: 8px;
 }
 
 .graph-node {
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   padding: 8px 16px;
-  border-radius: 8px;
+  border-radius: 6px;
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--dark);
+  color: white;
 }
 
 .graph-arrow {
@@ -1147,19 +957,23 @@
 .workflow-note {
   text-align: center;
   font-size: 0.8rem;
-  color: var(--text-muted);
+  color: var(--gray);
   margin-top: 12px;
 }
 
-/* Fixes Summary Styles - Grok Style */
+/* ========================================
+   FIXES SUMMARY STYLES
+   ======================================== */
+
 .fixes-badge {
-  background: var(--success);
-  color: var(--dark);
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
   padding: 4px 12px;
-  border-radius: 9999px;
+  border-radius: 20px;
   font-size: 0.75rem;
   font-weight: 600;
   margin-left: 12px;
+  animation: pulse 2s infinite;
 }
 
 .code-actions {
@@ -1169,7 +983,7 @@
 }
 
 .fixes-summary {
-  background: rgba(16, 185, 129, 0.1);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
   border: 1px solid rgba(16, 185, 129, 0.3);
   border-radius: 12px;
   padding: 20px;
@@ -1195,7 +1009,7 @@
 }
 
 .fix-group h4 {
-  color: var(--primary);
+  color: var(--primary-light);
   margin-bottom: 8px;
   font-size: 0.9rem;
 }
@@ -1206,7 +1020,7 @@
 }
 
 .fix-group li {
-  color: var(--text-secondary);
+  color: var(--gray-light);
   font-size: 0.85rem;
   margin: 4px 0;
 }
@@ -1215,7 +1029,7 @@
   background: rgba(16, 185, 129, 0.2);
   color: var(--success);
   padding: 2px 8px;
-  border-radius: 9999px;
+  border-radius: 10px;
   font-size: 0.7rem;
   font-weight: 600;
   margin-left: 8px;
@@ -1240,19 +1054,38 @@
 }
 
 .fixes-applied li {
-  color: var(--text-secondary);
+  color: var(--gray-light);
   font-size: 0.8rem;
   margin: 4px 0;
 }
 
-/* Real-time Fixes Display - Grok Style */
+.btn-sm {
+  padding: 4px 10px;
+  font-size: 0.8rem;
+}
+
+/* ========================================
+   REAL-TIME FIXES DISPLAY
+   ======================================== */
+
 .realtime-fixes {
-  background: rgba(16, 185, 129, 0.1);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.1) 100%);
   border: 1px solid rgba(16, 185, 129, 0.4);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 12px 16px;
   margin: 12px 0;
   animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .realtime-fixes h4 {
@@ -1265,11 +1098,11 @@
   margin: 8px 0;
   padding: 8px;
   background: rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 .realtime-fix-item .fix-agent {
-  color: var(--primary);
+  color: var(--primary-light);
   font-weight: 600;
   font-size: 0.85rem;
 }
@@ -1280,7 +1113,7 @@
 }
 
 .realtime-fix-item li {
-  color: var(--text-secondary);
+  color: var(--gray-light);
   font-size: 0.8rem;
   margin: 2px 0;
 }
@@ -1291,26 +1124,42 @@
   padding: 8px 12px;
   background: rgba(0, 0, 0, 0.3);
   border-radius: 8px 8px 0 0;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .streaming-preview .preview-header span {
   font-size: 0.8rem;
-  color: var(--text-muted);
+  color: var(--gray);
 }
 
 .streaming-preview .line-count {
-  color: var(--primary) !important;
+  color: var(--primary-light) !important;
 }
 
-/* API Key Warning Styles - Grok Style */
+.description-text {
+  background: transparent;
+  border: none;
+  color: var(--gray-light);
+  font-family: inherit;
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+/* ========================================
+   API KEY WARNING STYLES
+   ======================================== */
+
 .warning-text {
   color: #f59e0b;
   font-size: 0.75rem;
   margin-top: 8px;
   padding: 6px 8px;
   background: rgba(245, 158, 11, 0.1);
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .api-warning-banner {
@@ -1318,9 +1167,9 @@
   align-items: center;
   gap: 12px;
   padding: 12px 16px;
-  background: rgba(245, 158, 11, 0.1);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.1) 100%);
   border: 1px solid rgba(245, 158, 11, 0.3);
-  border-radius: 12px;
+  border-radius: 8px;
   margin: 0 20px 16px 20px;
 }
 
@@ -1338,14 +1187,14 @@
 }
 
 .api-warning-banner p {
-  color: var(--text-secondary);
+  color: var(--gray-light);
   font-size: 0.8rem;
   margin: 4px 0 0 0;
 }
 
 .api-key-prompt {
-  background: rgba(249, 115, 22, 0.1);
-  border: 1px solid rgba(249, 115, 22, 0.4);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(99, 102, 241, 0.15) 100%);
+  border: 1px solid rgba(124, 58, 237, 0.4);
   border-radius: 12px;
   padding: 16px 20px;
   margin: 16px 0;
@@ -1354,15 +1203,15 @@
 
 .api-key-prompt p {
   margin: 0 0 12px 0;
-  color: var(--text-secondary);
+  color: var(--gray-light);
 }
 
-/* AI Powered Badge - Grok Style */
+/* AI Powered Badge */
 .ai-badge {
-  background: var(--success);
-  color: var(--dark);
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
   padding: 2px 8px;
-  border-radius: 9999px;
+  border-radius: 4px;
   font-size: 0.7rem;
   font-weight: 600;
   margin-left: 8px;
@@ -1372,34 +1221,46 @@
   background: rgba(245, 158, 11, 0.2);
   color: #fbbf24;
   padding: 2px 8px;
-  border-radius: 9999px;
+  border-radius: 4px;
   font-size: 0.7rem;
   font-weight: 600;
   margin-left: 8px;
 }
 
-/* Agent Report Styles - Grok Style */
+/* ========================================
+   AGENT REPORT STYLES
+   ======================================== */
+
 .agent-report {
-  background: var(--dark);
-  border-radius: 12px;
+  background: var(--darker);
+  border-radius: 8px;
   padding: 16px;
   margin-top: 12px;
   max-height: 500px;
   overflow-y: auto;
 }
 
+.agent-report::-webkit-scrollbar {
+  width: 6px;
+}
+
+.agent-report::-webkit-scrollbar-thumb {
+  background: var(--gray);
+  border-radius: 3px;
+}
+
 .markdown-report {
   font-size: 0.85rem;
   line-height: 1.6;
-  color: var(--text-secondary);
+  color: var(--gray-light);
 }
 
 .markdown-report h2 {
-  color: var(--primary);
+  color: var(--primary-light);
   font-size: 1.1rem;
   margin: 0 0 12px 0;
   padding-bottom: 8px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .markdown-report h3 {
@@ -1409,7 +1270,7 @@
 }
 
 .markdown-report h4 {
-  color: var(--text-secondary);
+  color: var(--gray-light);
   font-size: 0.9rem;
   margin: 12px 0 6px 0;
 }
@@ -1433,8 +1294,8 @@
 
 .markdown-report .code-snippet {
   background: rgba(0, 0, 0, 0.4);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
   padding: 12px;
   margin: 8px 0;
   overflow-x: auto;
@@ -1450,43 +1311,71 @@
 }
 
 .markdown-report .inline-code {
-  background: rgba(249, 115, 22, 0.2);
-  color: var(--primary);
+  background: rgba(124, 58, 237, 0.2);
+  color: var(--primary-light);
   padding: 2px 6px;
   border-radius: 4px;
   font-family: 'Fira Code', 'Consolas', monospace;
   font-size: 0.85em;
 }
 
+/* Before/After styling in reports */
+.markdown-report h4:contains("Before"),
+.markdown-report strong:contains("Before") {
+  color: #ef4444;
+}
+
+.markdown-report h4:contains("After"),
+.markdown-report strong:contains("After") {
+  color: #10b981;
+}
+
+/* Security severity colors */
+.markdown-report h4:contains("CRITICAL") {
+  color: #ef4444;
+}
+
+.markdown-report h4:contains("HIGH") {
+  color: #f97316;
+}
+
+.markdown-report h4:contains("MEDIUM") {
+  color: #eab308;
+}
+
+.markdown-report h4:contains("LOW") {
+  color: #22c55e;
+}
+
 .fixed-count {
   background: rgba(16, 185, 129, 0.2);
   color: var(--success);
   padding: 4px 10px;
-  border-radius: 9999px;
+  border-radius: 12px;
   font-size: 0.75rem;
   margin-left: 8px;
 }
 
-/* Generated Agent Report Styles - Grok Style */
+/* Generated Agent Report Styles */
 .agent-report-generated {
-  color: var(--text-secondary);
+  color: var(--gray-light);
 }
 
 .agent-report-generated h3 {
-  color: var(--primary);
+  color: var(--primary-light);
   font-size: 1rem;
   margin: 0 0 12px 0;
   padding-bottom: 8px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .report-summary {
-  color: var(--text-secondary);
+  color: var(--gray-light);
   font-size: 0.85rem;
   margin-bottom: 16px;
   padding: 8px 12px;
   background: rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 .fixes-detail-list {
@@ -1512,7 +1401,7 @@
   display: inline-block;
   font-size: 0.7rem;
   padding: 3px 8px;
-  border-radius: 9999px;
+  border-radius: 10px;
   margin-right: 8px;
   font-weight: 600;
 }
@@ -1541,9 +1430,9 @@
   display: inline-block;
   font-size: 0.7rem;
   padding: 3px 8px;
-  border-radius: 9999px;
-  background: rgba(249, 115, 22, 0.2);
-  color: var(--primary);
+  border-radius: 10px;
+  background: rgba(124, 58, 237, 0.2);
+  color: var(--primary-light);
 }
 
 .before-after {
@@ -1556,7 +1445,7 @@
 .code-before,
 .code-after {
   background: rgba(0, 0, 0, 0.4);
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 10px;
 }
 
@@ -1572,7 +1461,7 @@
 }
 
 .code-after strong {
-  color: var(--success);
+  color: #10b981;
 }
 
 .code-before pre,
@@ -1594,54 +1483,7 @@
   word-break: break-word;
 }
 
-/* Workflow Details */
-.workflow-icon {
-  font-size: 1.25rem;
-}
-
-.workflow-details {
-  display: flex;
-  flex-direction: column;
-}
-
-.workflow-agent {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--white);
-}
-
-.workflow-status {
-  font-size: 0.75rem;
-  color: var(--success);
-}
-
-/* Responsive */
 @media (max-width: 768px) {
-  .sidebar {
-    position: fixed;
-    left: -260px;
-    top: 0;
-    bottom: 0;
-    z-index: 1000;
-    transition: left 0.3s ease;
-  }
-  
-  .sidebar.open {
-    left: 0;
-  }
-  
-  .chat-input-wrapper {
-    flex-direction: column;
-  }
-  
-  .send-button {
-    align-self: flex-end;
-  }
-  
-  .results-grid {
-    grid-template-columns: 1fr;
-  }
-  
   .before-after {
     grid-template-columns: 1fr;
   }

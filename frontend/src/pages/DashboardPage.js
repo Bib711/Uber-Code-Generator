@@ -162,24 +162,24 @@ const DashboardPage = () => {
                 </div>
               </div>
               <div className="stat-card">
-                <div className="stat-icon">🤖</div>
+                <div className="stat-icon">💬</div>
                 <div className="stat-info">
-                  <span className="stat-value">4</span>
-                  <span className="stat-label">Active Agents</span>
+                  <span className="stat-value">{sessions.filter(s => s.message_count > 0).length}</span>
+                  <span className="stat-label">Active Chats</span>
                 </div>
               </div>
               <div className="stat-card">
                 <div className="stat-icon">✨</div>
                 <div className="stat-info">
                   <span className="stat-value">{sessions.reduce((acc, s) => acc + (s.message_count || 0), 0)}</span>
-                  <span className="stat-label">Generations</span>
+                  <span className="stat-label">Total Messages</span>
                 </div>
               </div>
               <div className="stat-card">
-                <div className="stat-icon">🛡️</div>
+                <div className="stat-icon">🤖</div>
                 <div className="stat-info">
-                  <span className="stat-value">100%</span>
-                  <span className="stat-label">Security Score</span>
+                  <span className="stat-value">4</span>
+                  <span className="stat-label">Active Agents</span>
                 </div>
               </div>
             </div>
