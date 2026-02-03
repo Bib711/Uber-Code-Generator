@@ -5,7 +5,7 @@ import { ToastProvider } from './components/Toast';
 import ProtectedRoute from './components/ProtectedRoute';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
-import ChatPage from './pages/ChatPage';
+import GenUIChatPageV2 from './pages/GenUIChatPageV2';
 import DashboardPage from './pages/DashboardPage';
 
 function App() {
@@ -18,12 +18,12 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/chat" element={
               <ProtectedRoute>
-                <ChatPage />
+                <GenUIChatPageV2 />
               </ProtectedRoute>
             } />
             <Route path="/chat/:sessionId" element={
               <ProtectedRoute>
-                <ChatPage />
+                <GenUIChatPageV2 />
               </ProtectedRoute>
             } />
             <Route path="/dashboard" element={

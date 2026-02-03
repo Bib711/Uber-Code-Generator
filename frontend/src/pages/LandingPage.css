@@ -141,6 +141,14 @@
   margin: 0 auto;
 }
 
+.hero-badges {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
 .hero-badge {
   display: inline-block;
   padding: 6px 14px;
@@ -150,7 +158,18 @@
   font-size: 0.85rem;
   font-weight: 500;
   color: var(--primary);
-  margin-bottom: 24px;
+}
+
+.hero-badge.genui {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(168, 85, 247, 0.15) 100%);
+  border-color: rgba(139, 92, 246, 0.4);
+  color: #a855f7;
+  animation: genui-glow 2s ease-in-out infinite;
+}
+
+@keyframes genui-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(168, 85, 247, 0.3); }
+  50% { box-shadow: 0 0 16px rgba(168, 85, 247, 0.5); }
 }
 
 .hero-title {
@@ -278,7 +297,7 @@
   line-height: 1.5;
 }
 
-/* Workflow - Grok Style */
+/* Workflow - Arrow Flow Style */
 .workflow {
   padding: 80px 0;
   background: var(--dark-light);
@@ -289,33 +308,39 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 16px;
+  gap: 0;
   margin-top: 40px;
+  flex-wrap: wrap;
 }
 
 .workflow-step {
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-  flex: 1;
-  min-width: 140px;
-  max-width: 180px;
+  min-width: 120px;
+  max-width: 150px;
+  padding: 0 8px;
 }
 
 .step-number {
-  width: 48px;
-  height: 48px;
-  background: var(--primary);
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--primary) 0%, #ea580c 100%);
   color: var(--dark);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 20px rgba(249, 115, 22, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.workflow-step:hover .step-number {
+  transform: scale(1.1);
+  box-shadow: 0 6px 28px rgba(249, 115, 22, 0.5);
 }
 
 .step-content {
@@ -326,20 +351,45 @@
   font-size: 0.95rem;
   margin-bottom: 6px;
   color: var(--white);
+  font-weight: 600;
 }
 
 .step-content p {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
+  line-height: 1.4;
 }
 
-.step-connector {
-  position: absolute;
-  top: 24px;
-  right: -20px;
-  width: 24px;
-  height: 2px;
-  background: var(--border-light);
+.step-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  margin-top: 16px;
+  color: var(--primary);
+  opacity: 0.7;
+}
+
+.step-arrow svg {
+  width: 40px;
+  height: 24px;
+}
+
+@media (max-width: 768px) {
+  .workflow-timeline {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .step-arrow {
+    transform: rotate(90deg);
+    margin: 8px 0;
+  }
+  
+  .workflow-step {
+    max-width: 200px;
+  }
 }
 
 /* CTA - Grok Style */

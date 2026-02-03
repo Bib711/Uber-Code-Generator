@@ -66,14 +66,17 @@ const LandingPage = () => {
       {/* Hero Section */}
       <section className="hero">
         <div className="container hero-content">
-          <div className="hero-badge">🤖 Multi-Agent AI System</div>
+          <div className="hero-badges">
+            <div className="hero-badge">🤖 Multi-Agent AI System</div>
+            <div className="hero-badge genui">✨ Generative UI Powered</div>
+          </div>
           <h1 className="hero-title">
             Generate Production-Ready Code
             <span className="gradient-text"> in Seconds</span>
           </h1>
           <p className="hero-subtitle">
             Leverage the power of 4 specialized AI agents working together to generate, 
-            validate, test, and secure your code automatically.
+            validate, test, and secure your code automatically with real-time streaming.
           </p>
           <div className="hero-buttons">
             <Link to="/chat" className="btn btn-large btn-gradient">
@@ -94,8 +97,8 @@ const LandingPage = () => {
               <span className="stat-label">Possibilities</span>
             </div>
             <div className="stat">
-              <span className="stat-value">0</span>
-              <span className="stat-label">Security Issues</span>
+              <span className="stat-value">AG-UI</span>
+              <span className="stat-label">Protocol</span>
             </div>
           </div>
         </div>
@@ -126,14 +129,22 @@ const LandingPage = () => {
           <p className="section-subtitle">A seamless orchestration of AI agents</p>
           <div className="workflow-timeline">
             {workflow.map((item, index) => (
-              <div key={index} className="workflow-step">
-                <div className="step-number">{item.step}</div>
-                <div className="step-content">
-                  <h4>{item.title}</h4>
-                  <p>{item.desc}</p>
+              <React.Fragment key={index}>
+                <div className="workflow-step">
+                  <div className="step-number">{item.step}</div>
+                  <div className="step-content">
+                    <h4>{item.title}</h4>
+                    <p>{item.desc}</p>
+                  </div>
                 </div>
-                {index < workflow.length - 1 && <div className="step-connector"></div>}
-              </div>
+                {index < workflow.length - 1 && (
+                  <div className="step-arrow">
+                    <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
+                      <path d="M0 12H36M36 12L26 4M36 12L26 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                )}
+              </React.Fragment>
             ))}
           </div>
         </div>
@@ -148,13 +159,13 @@ const LandingPage = () => {
             <div className="about-text">
               <p>
                 <strong>Uber Code Generator</strong> is a cutting-edge code generation platform that leverages 
-                the power of multiple specialized AI agents working in harmony. Built as a mini project, 
-                it demonstrates the potential of multi-agent systems in software development.
+                the power of multiple specialized AI agents working in harmony. Built with real-time streaming
+                technology, it demonstrates the future of AI-powered development tools.
               </p>
               <p>
-                The system uses <strong>4 specialized agents</strong> - Code Generator, Validator, Testing, and Security - 
-                each focusing on a specific aspect of code quality. Together, they ensure that the generated 
-                code is not just functional, but also well-structured, tested, and secure.
+                The system uses <strong>4 specialized agents</strong> - Code Generator, Validator, Testing, and Security -
+                each focusing on a specific aspect of code quality. Real-time SSE streaming enables instant feedback
+                as agents process your code.
               </p>
               <div className="tech-stack">
                 <h4>Tech Stack</h4>
@@ -164,7 +175,7 @@ const LandingPage = () => {
                   <span className="tech-tag">MongoDB</span>
                   <span className="tech-tag">Groq LLM</span>
                   <span className="tech-tag">LangGraph</span>
-                  <span className="tech-tag">Google OAuth</span>
+                  <span className="tech-tag">SSE Streaming</span>
                 </div>
               </div>
             </div>

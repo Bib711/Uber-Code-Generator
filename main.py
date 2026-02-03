@@ -1,4 +1,4 @@
-# Entry point for Uber Code Generator API with Streaming - FastAPI Version
+# Entry point for Uber Code Generator API with Streaming & Generative UI - FastAPI Version
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
@@ -7,11 +7,16 @@ from datetime import datetime
 from pydantic import BaseModel
 from typing import Optional, List
 import json
+import time
 
 from config import settings
 from database import connect_to_mongo, close_mongo_connection, SessionDB, MessageDB
 from auth import router as auth_router, get_current_user, get_optional_user
 from orchestrator import Orchestrator
+from agui_protocol import (
+    AGUIBuilder, AGUIEventBuilder, UIEventType, AgentPhase, Severity,
+    FixCardSpec, WorkflowStepSpec, create_fix_spec
+)
 
 
 # Lifespan for startup/shutdown events
@@ -50,6 +55,7 @@ class GenerateRequest(BaseModel):
     prompt: str
     session_id: Optional[str] = None
     api_key: Optional[str] = None
+    context_code: Optional[str] = None  # Previous code for follow-up prompts
 
 
 class EditRequest(BaseModel):
@@ -115,81 +121,427 @@ async def generate_code(request: GenerateRequest, user: Optional[dict] = Depends
 
 @app.post("/api/generate/stream")
 async def generate_code_stream(request: GenerateRequest):
-    """Streaming endpoint for real-time code generation with agent fixes"""
+    """Streaming endpoint with Generative UI - Real-time agent-generated interface components"""
     if not request.prompt:
         raise HTTPException(status_code=400, detail="Prompt is required")
     
     orchestrator = Orchestrator(request.api_key)
+    
+    # Build enhanced prompt with context if previous code exists
+    enhanced_prompt = request.prompt
+    if request.context_code:
+        enhanced_prompt = f"""Previous code that was generated:
+```
+{request.context_code}
+```
+
+User's follow-up request: {request.prompt}
+
+Please modify or rewrite the above code according to the user's request."""
     
     async def generate():
         full_code = ""
         current_code = ""
         original_code = ""
         all_fixes = []
+        workflow_steps = [
+            {"id": "code_gen", "name": "Code Generator", "icon": "⚡", "status": "pending"},
+            {"id": "validator", "name": "Validator", "icon": "✓", "status": "pending"},
+            {"id": "testing", "name": "Testing", "icon": "🧪", "status": "pending"},
+            {"id": "security", "name": "Security", "icon": "🛡️", "status": "pending"}
+        ]
+        start_time = time.time()
         
-        # Stream code generation
-        yield "data: " + json.dumps({'type': 'start', 'agent': 'Code Generator', 'message': '🚀 Generating code...'}) + "\n\n"
+        # ===== CODE GENERATOR PHASE =====
+        workflow_steps[0]["status"] = "active"
+        agent_start = AGUIEventBuilder.agent_start(
+            agent_id="code_generator",
+            agent_name="Code Generator",
+            message="🚀 Generating code from your prompt..."
+        )
+        yield agent_start.to_sse()
         
-        for chunk in orchestrator.generate_code_stream(request.prompt):
+        # Stream workflow update
+        yield f"data: {json.dumps({'type': 'workflow_update', 'steps': workflow_steps})}\n\n"
+        
+        gen_start = time.time()
+        line_count = 0
+        
+        # Use enhanced_prompt that includes context if available
+        for chunk in orchestrator.generate_code_stream(enhanced_prompt):
             full_code += chunk
-            yield "data: " + json.dumps({'type': 'chunk', 'content': chunk}) + "\n\n"
+            line_count = len(full_code.splitlines())
+            
+            # Send chunk with UI metadata
+            chunk_event = {
+                'type': 'stream_chunk',
+                'source': 'code_generator',
+                'payload': {
+                    'content': chunk,
+                    'totalLines': line_count,
+                    'totalChars': len(full_code)
+                }
+            }
+            yield f"data: {json.dumps(chunk_event)}\n\n"
         
+        gen_duration = time.time() - gen_start
         original_code = full_code
         current_code = full_code
-        lines_count = len(full_code.splitlines())
-        yield "data: " + json.dumps({'type': 'agent_complete', 'agent': 'Code Generator', 'message': f'Generated {lines_count} lines'}) + "\n\n"
         
-        # Validator Agent - analyzes and fixes
-        yield "data: " + json.dumps({'type': 'start', 'agent': 'Validator', 'message': '✅ Analyzing code quality...'}) + "\n\n"
+        # Code generator complete
+        workflow_steps[0]["status"] = "complete"
+        workflow_steps[0]["duration"] = round(gen_duration, 2)
+        
+        gen_complete = AGUIEventBuilder.agent_complete(
+            agent_id="code_generator",
+            agent_name="Code Generator",
+            message=f"Generated {line_count} lines of code",
+            stats={"lines": line_count, "chars": len(full_code), "duration": round(gen_duration, 2)}
+        )
+        yield gen_complete.to_sse()
+        yield f"data: {json.dumps({'type': 'workflow_update', 'steps': workflow_steps})}\n\n"
+        
+        # ===== VALIDATOR PHASE =====
+        workflow_steps[1]["status"] = "active"
+        val_start = time.time()
+        
+        val_start_event = AGUIEventBuilder.agent_start(
+            agent_id="validator",
+            agent_name="Validator",
+            message="✅ Analyzing code quality and style..."
+        )
+        yield val_start_event.to_sse()
+        yield f"data: {json.dumps({'type': 'workflow_update', 'steps': workflow_steps})}\n\n"
+        
+        # Progress updates
+        yield AGUIEventBuilder.agent_progress(
+            agent_id="validator",
+            agent_name="Validator",
+            message="Checking syntax and style...",
+            progress=30,
+            phase=AgentPhase.ANALYZING
+        ).to_sse()
+        
         validation = orchestrator.validate_code(current_code)
+        val_duration = time.time() - val_start
         
+        # Process fixes with rich UI specs
+        val_fixes = []
         if validation.get('fixed_code') and validation.get('fixes_applied'):
             current_code = validation['fixed_code']
-            fix_count = len(validation['fixes_applied'])
+            for fix in validation['fixes_applied']:
+                if isinstance(fix, dict):
+                    fix_spec = create_fix_spec(
+                        agent="Validator",
+                        description=fix.get('description', str(fix)),
+                        severity=fix.get('severity', 'medium'),
+                        before=fix.get('before'),
+                        after=fix.get('after'),
+                        line=fix.get('line'),
+                        category="Code Quality"
+                    )
+                else:
+                    fix_spec = create_fix_spec(
+                        agent="Validator",
+                        description=str(fix),
+                        severity="medium"
+                    )
+                val_fixes.append(fix_spec)
+            
             all_fixes.append({'agent': 'Validator', 'fixes': validation['fixes_applied']})
-            yield "data: " + json.dumps({'type': 'code_update', 'agent': 'Validator', 'code': current_code, 'fixes': validation['fixes_applied'], 'message': f'Applied {fix_count} fixes'}) + "\n\n"
+            
+            # Send code update with UI components
+            code_update = {
+                'type': 'code_update',
+                'source': 'validator',
+                'payload': {
+                    'code': current_code,
+                    'fixCount': len(val_fixes),
+                    'fixes': [f.model_dump() for f in val_fixes],
+                    'ui': {
+                        'type': 'fix_summary',
+                        'agent': 'Validator',
+                        'icon': '✓',
+                        'totalFixes': len(val_fixes),
+                        'fixes': [{'description': f.description, 'severity': f.severity} for f in val_fixes]
+                    }
+                }
+            }
+            yield f"data: {json.dumps(code_update)}\n\n"
         
-        yield "data: " + json.dumps({'type': 'result', 'agent': 'Validator', 'data': validation}) + "\n\n"
+        workflow_steps[1]["status"] = "complete"
+        workflow_steps[1]["duration"] = round(val_duration, 2)
         
-        # Testing Agent - analyzes and fixes
-        yield "data: " + json.dumps({'type': 'start', 'agent': 'Testing', 'message': '🧪 Checking testability & error handling...'}) + "\n\n"
+        # Rich result event with UI components
+        val_result = {
+            'type': 'agent_result',
+            'source': 'validator',
+            'payload': {
+                'agentName': 'Validator',
+                'icon': '✓',
+                'phase': 'complete',
+                'data': validation,
+                'fixes': [f.model_dump() for f in val_fixes],
+                'stats': {
+                    'issuesFound': len(validation.get('issues', [])),
+                    'fixesApplied': len(val_fixes),
+                    'duration': round(val_duration, 2)
+                },
+                'ui': AGUIBuilder.agent_card(
+                    agent_name="Validator",
+                    icon="✓",
+                    phase=AgentPhase.COMPLETE,
+                    message=f"{len(val_fixes)} fixes applied" if val_fixes else "Code quality verified",
+                    fixes=val_fixes,
+                    stats=validation.get('stats')
+                ).model_dump()
+            }
+        }
+        yield f"data: {json.dumps(val_result)}\n\n"
+        yield f"data: {json.dumps({'type': 'workflow_update', 'steps': workflow_steps})}\n\n"
+        
+        # ===== TESTING PHASE =====
+        workflow_steps[2]["status"] = "active"
+        test_start = time.time()
+        
+        test_start_event = AGUIEventBuilder.agent_start(
+            agent_id="testing",
+            agent_name="Testing Agent",
+            message="🧪 Analyzing testability & error handling..."
+        )
+        yield test_start_event.to_sse()
+        yield f"data: {json.dumps({'type': 'workflow_update', 'steps': workflow_steps})}\n\n"
+        
+        yield AGUIEventBuilder.agent_progress(
+            agent_id="testing",
+            agent_name="Testing Agent",
+            message="Checking error handling patterns...",
+            progress=50,
+            phase=AgentPhase.ANALYZING
+        ).to_sse()
+        
         tests = orchestrator.test_code(current_code)
+        test_duration = time.time() - test_start
         
+        test_fixes = []
         if tests.get('fixed_code') and tests.get('fixes_applied'):
             current_code = tests['fixed_code']
-            fix_count = len(tests['fixes_applied'])
+            for fix in tests['fixes_applied']:
+                if isinstance(fix, dict):
+                    fix_spec = create_fix_spec(
+                        agent="Testing",
+                        description=fix.get('description', str(fix)),
+                        severity=fix.get('severity', 'medium'),
+                        before=fix.get('before'),
+                        after=fix.get('after'),
+                        line=fix.get('line'),
+                        category="Error Handling"
+                    )
+                else:
+                    fix_spec = create_fix_spec(
+                        agent="Testing",
+                        description=str(fix),
+                        severity="medium"
+                    )
+                test_fixes.append(fix_spec)
+            
             all_fixes.append({'agent': 'Testing', 'fixes': tests['fixes_applied']})
-            yield "data: " + json.dumps({'type': 'code_update', 'agent': 'Testing', 'code': current_code, 'fixes': tests['fixes_applied'], 'message': f'Applied {fix_count} fixes'}) + "\n\n"
+            
+            code_update = {
+                'type': 'code_update',
+                'source': 'testing',
+                'payload': {
+                    'code': current_code,
+                    'fixCount': len(test_fixes),
+                    'fixes': [f.model_dump() for f in test_fixes],
+                    'ui': {
+                        'type': 'fix_summary',
+                        'agent': 'Testing',
+                        'icon': '🧪',
+                        'totalFixes': len(test_fixes),
+                        'fixes': [{'description': f.description, 'severity': f.severity} for f in test_fixes]
+                    }
+                }
+            }
+            yield f"data: {json.dumps(code_update)}\n\n"
         
-        yield "data: " + json.dumps({'type': 'result', 'agent': 'Testing', 'data': tests}) + "\n\n"
+        workflow_steps[2]["status"] = "complete"
+        workflow_steps[2]["duration"] = round(test_duration, 2)
         
-        # Security Agent - analyzes and fixes
-        yield "data: " + json.dumps({'type': 'start', 'agent': 'Security', 'message': '🛡️ Scanning for vulnerabilities...'}) + "\n\n"
+        test_result = {
+            'type': 'agent_result',
+            'source': 'testing',
+            'payload': {
+                'agentName': 'Testing Agent',
+                'icon': '🧪',
+                'phase': 'complete',
+                'data': tests,
+                'fixes': [f.model_dump() for f in test_fixes],
+                'stats': {
+                    'testabilityScore': tests.get('testability_score', 'N/A'),
+                    'fixesApplied': len(test_fixes),
+                    'duration': round(test_duration, 2)
+                },
+                'ui': AGUIBuilder.agent_card(
+                    agent_name="Testing Agent",
+                    icon="🧪",
+                    phase=AgentPhase.COMPLETE,
+                    message=f"{len(test_fixes)} improvements applied" if test_fixes else "Error handling adequate",
+                    fixes=test_fixes,
+                    stats={'testabilityScore': tests.get('testability_score')}
+                ).model_dump()
+            }
+        }
+        yield f"data: {json.dumps(test_result)}\n\n"
+        yield f"data: {json.dumps({'type': 'workflow_update', 'steps': workflow_steps})}\n\n"
+        
+        # ===== SECURITY PHASE =====
+        workflow_steps[3]["status"] = "active"
+        sec_start = time.time()
+        
+        sec_start_event = AGUIEventBuilder.agent_start(
+            agent_id="security",
+            agent_name="Security Agent",
+            message="🛡️ Scanning for vulnerabilities..."
+        )
+        yield sec_start_event.to_sse()
+        yield f"data: {json.dumps({'type': 'workflow_update', 'steps': workflow_steps})}\n\n"
+        
+        yield AGUIEventBuilder.agent_progress(
+            agent_id="security",
+            agent_name="Security Agent",
+            message="Running security audit...",
+            progress=70,
+            phase=AgentPhase.ANALYZING
+        ).to_sse()
+        
         security = orchestrator.secure_code(current_code)
+        sec_duration = time.time() - sec_start
         
+        sec_fixes = []
         if security.get('fixed_code') and security.get('fixes_applied'):
             current_code = security['fixed_code']
-            fix_count = len(security['fixes_applied'])
+            for fix in security['fixes_applied']:
+                if isinstance(fix, dict):
+                    fix_spec = create_fix_spec(
+                        agent="Security",
+                        description=fix.get('description', str(fix)),
+                        severity=fix.get('severity', 'high'),
+                        before=fix.get('before'),
+                        after=fix.get('after'),
+                        line=fix.get('line'),
+                        category="Security"
+                    )
+                else:
+                    fix_spec = create_fix_spec(
+                        agent="Security",
+                        description=str(fix),
+                        severity="high"
+                    )
+                sec_fixes.append(fix_spec)
+            
             all_fixes.append({'agent': 'Security', 'fixes': security['fixes_applied']})
-            yield "data: " + json.dumps({'type': 'code_update', 'agent': 'Security', 'code': current_code, 'fixes': security['fixes_applied'], 'message': f'Applied {fix_count} security fixes'}) + "\n\n"
+            
+            code_update = {
+                'type': 'code_update',
+                'source': 'security',
+                'payload': {
+                    'code': current_code,
+                    'fixCount': len(sec_fixes),
+                    'fixes': [f.model_dump() for f in sec_fixes],
+                    'ui': {
+                        'type': 'fix_summary',
+                        'agent': 'Security',
+                        'icon': '🛡️',
+                        'totalFixes': len(sec_fixes),
+                        'severity': security.get('risk_level', 'LOW'),
+                        'fixes': [{'description': f.description, 'severity': f.severity} for f in sec_fixes]
+                    }
+                }
+            }
+            yield f"data: {json.dumps(code_update)}\n\n"
         
-        yield "data: " + json.dumps({'type': 'result', 'agent': 'Security', 'data': security}) + "\n\n"
+        workflow_steps[3]["status"] = "complete"
+        workflow_steps[3]["duration"] = round(sec_duration, 2)
         
-        # Calculate totals
+        sec_result = {
+            'type': 'agent_result',
+            'source': 'security',
+            'payload': {
+                'agentName': 'Security Agent',
+                'icon': '🛡️',
+                'phase': 'complete',
+                'data': security,
+                'fixes': [f.model_dump() for f in sec_fixes],
+                'stats': {
+                    'riskLevel': security.get('risk_level', 'LOW'),
+                    'vulnerabilities': len(security.get('vulnerabilities', [])),
+                    'fixesApplied': len(sec_fixes),
+                    'duration': round(sec_duration, 2)
+                },
+                'ui': AGUIBuilder.agent_card(
+                    agent_name="Security Agent",
+                    icon="🛡️",
+                    phase=AgentPhase.COMPLETE,
+                    message=f"{len(sec_fixes)} security fixes applied" if sec_fixes else "Code is secure",
+                    fixes=sec_fixes,
+                    stats={'riskLevel': security.get('risk_level')}
+                ).model_dump()
+            }
+        }
+        yield f"data: {json.dumps(sec_result)}\n\n"
+        yield f"data: {json.dumps({'type': 'workflow_update', 'steps': workflow_steps})}\n\n"
+        
+        # ===== FINAL RESULT =====
+        total_duration = time.time() - start_time
         total_fixes = sum(len(f['fixes']) for f in all_fixes)
         code_was_fixed = current_code != original_code
         
-        # Final result
+        # Build comprehensive UI for final result
+        final_ui_components = []
+        
+        # Summary stats grid
+        final_ui_components.append(AGUIBuilder.grid([
+            AGUIBuilder.stat_card("Total Lines", line_count, "📝"),
+            AGUIBuilder.stat_card("Fixes Applied", total_fixes, "🔧"),
+            AGUIBuilder.stat_card("Duration", f"{round(total_duration, 1)}s", "⏱️"),
+            AGUIBuilder.stat_card("Agents Run", 4, "🤖")
+        ], columns=4).model_dump())
+        
+        # If code was fixed, add diff component
+        if code_was_fixed:
+            final_ui_components.append(AGUIBuilder.code_diff(
+                before=original_code,
+                after=current_code,
+                title="All Changes Applied"
+            ).model_dump())
+        
         final_data = {
             'type': 'complete',
-            'code': current_code,
-            'original_code': original_code if code_was_fixed else None,
-            'prompt': request.prompt,
-            'all_fixes': all_fixes,
-            'total_fixes': total_fixes,
-            'code_was_fixed': code_was_fixed
+            'payload': {
+                'code': current_code,
+                'original_code': original_code if code_was_fixed else None,
+                'prompt': request.prompt,
+                'all_fixes': all_fixes,
+                'total_fixes': total_fixes,
+                'code_was_fixed': code_was_fixed,
+                'workflow': workflow_steps,
+                'stats': {
+                    'totalDuration': round(total_duration, 2),
+                    'totalLines': line_count,
+                    'totalFixes': total_fixes
+                },
+                'validation': validation,
+                'tests': tests,
+                'security': security,
+                'ui': {
+                    'type': 'completion_summary',
+                    'components': final_ui_components,
+                    'message': f"✨ Generation complete! {total_fixes} fixes applied in {round(total_duration, 1)}s"
+                }
+            }
         }
-        yield "data: " + json.dumps(final_data) + "\n\n"
+        yield f"data: {json.dumps(final_data)}\n\n"
     
     return StreamingResponse(generate(), media_type="text/event-stream")
 
