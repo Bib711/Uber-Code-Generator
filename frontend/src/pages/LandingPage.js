@@ -45,7 +45,7 @@ const LandingPage = () => {
         <div className="container header-content">
           <div className="logo">
             <span className="logo-icon">🤖</span>
-            <span className="logo-text">Uber Code Generator</span>
+            <span className="logo-text">Uber Code Generator (UCG)</span>
           </div>
           <nav className="nav">
             <a href="#features">Features</a>

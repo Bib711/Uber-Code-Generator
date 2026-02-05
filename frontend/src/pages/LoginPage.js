@@ -42,7 +42,7 @@ const LoginPage = () => {
         <div className="login-header">
           <Link to="/" className="login-logo">
             <span className="logo-icon">🚀</span>
-            <span className="logo-text">Uber Code Generator</span>
+            <span className="logo-text">Uber Code Generator (UCG)</span>
           </Link>
         </div>
 
